@@ -148,3 +148,35 @@ Cost Optimization
 
 ### DevOps Metrics
 - Deployment frequency, change failure rate, MTTR, lead time. Explain how you use them to improve processes.
+
+## Environment Management Interview Questions
+
+### How do you manage different environments across the deployment pipeline?
+- Answer: Use Terraform workspaces with env-specific .tfvars files, dedicated EKS clusters, ArgoCD for GitOps, and separate AWS accounts for prod/non-prod with cross-account access via Terraform.
+
+### How do you handle configuration management across environments?
+- Answer: Combine Terraform variables with Kubernetes ConfigMaps/Secrets, store sensitive data in Vault, validate config in CI/CD, and expose infrastructure values via Terraform outputs that ArgoCD consumes.
+
+### What's your code promotion strategy across environments?
+- Answer: Git-based workflow (feature→dev, develop→staging, main→prod) using immutable container images tagged with Git SHA. Implement approvals for protected branches and verification for production deployments.
+
+### How do you implement rollback strategies?
+- Answer: Maintain Terraform state history, leverage ArgoCD's deployment history, implement health checks, tag images with Git SHAs, and design database migrations with backward compatibility.
+
+### How do you handle disaster recovery for multi-region infrastructure?
+- Answer: AWS multi-region setup with S3 replication, DynamoDB global tables, cross-region backups, consistent GitOps deployment, and Route53 failover with regular DR testing.
+
+### How do you secure containers throughout their lifecycle?
+- Answer: Implement pipeline security with pre-commit hooks and vulnerability scanning, runtime protection with network policies and monitoring, and enforce security standards with admission controllers.
+
+### How would you optimize a slow CI/CD pipeline?
+- Answer: Profile pipeline, implement caching, parallelize tests, use targeted applies, leverage selective sync, and create ephemeral environments, reducing deployment time from 65 to 12 minutes.
+
+### What's your approach to cloud cost optimization?
+- Answer: Comprehensive tagging, right-sizing, cluster autoscaling, Spot instances, storage tiering, scheduled scaling for non-production, and reserved instances, achieving 40%+ cost reduction.
+
+### How do you implement observability for microservices?
+- Answer: Three-pillar approach with Prometheus for metrics, centralized logging, and OpenTelemetry tracing, enhanced with service mesh telemetry and SLO-based alerting.
+
+### What deployment strategies do you use for various scenarios?
+- Answer: Rolling updates for stateless apps, Blue-Green deployments for critical systems, and Canary releases with progressive traffic shifting for high-traffic applications.
